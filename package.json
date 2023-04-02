@@ -1,5 +1,5 @@
 {
-  "name": "turboCustomUi",
+  "name": "@custom-lb-ui/eslint-config",
   "version": "0.0.0",
   "private": true,
   "workspaces": [
@@ -13,13 +13,13 @@
     "format": "prettier --write \"**/*.{ts,tsx,md}\""
   },
   "devDependencies": {
-    "eslint-config-custom": "workspace:*",
+    "@changesets/cli": "^2.26.1",
+    "@custom-lb-ui/eslint-config": "workspace:*",
     "prettier": "latest",
     "turbo": "latest"
   },
   "engines": {
     "node": ">=14.0.0"
   },
-  "dependencies": {},
   "packageManager": "pnpm@7.17.0"
 }

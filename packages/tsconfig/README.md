@@ -1,3 +1,3 @@
-# `tsconfig`
+# `@custom-lb-ui/tsconfig`
 
-These are base shared `tsconfig.json`s from which all other `tsconfig.json`'s inherit from.
+These are base shared `@custom-lb-ui/tsconfig.json`s from which all other `@custom-lb-ui/tsconfig.json`'s inherit from.
