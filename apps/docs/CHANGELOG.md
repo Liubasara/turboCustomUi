@@ -9,4 +9,4 @@
 ### Patch Changes
 
 - Updated dependencies [08fe9dd]
-  - @custom-lb-ui/ui@0.1.0
+  - @custom-lb/ui@0.1.0

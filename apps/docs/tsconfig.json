@@ -1,5 +1,5 @@
 {
-  "extends": "@custom-lb-ui/tsconfig/nextjs.json",
+  "extends": "@custom-lb/tsconfig/nextjs.json",
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
   "exclude": ["node_modules"]
 }

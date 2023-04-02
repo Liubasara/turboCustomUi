@@ -1,4 +1,4 @@
-# @custom-lb-ui/ui
+# @custom-lb/ui
 
 ## 0.1.0
 

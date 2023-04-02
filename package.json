@@ -1,5 +1,5 @@
 {
-  "name": "@custom-lb-ui/eslint-config",
+  "name": "@custom-lb/eslint-config",
   "version": "0.0.0",
   "private": true,
   "workspaces": [
@@ -14,7 +14,7 @@
   },
   "devDependencies": {
     "@changesets/cli": "^2.26.1",
-    "@custom-lb-ui/eslint-config": "workspace:*",
+    "@custom-lb/eslint-config": "workspace:*",
     "prettier": "latest",
     "turbo": "latest"
   },

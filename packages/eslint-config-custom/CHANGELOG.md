@@ -1,4 +1,4 @@
-# @custom-lb-ui/eslint-config
+# @custom-lb/eslint-config
 
 ## 0.1.0
 

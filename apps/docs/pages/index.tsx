@@ -1,4 +1,4 @@
-import { Button } from "@custom-lb-ui/ui";
+import { Button } from "@custom-lb/ui";
 
 export default function Docs() {
   return (

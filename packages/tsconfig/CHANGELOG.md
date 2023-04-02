@@ -1,4 +1,4 @@
-# @custom-lb-ui/tsconfig
+# @custom-lb/tsconfig
 
 ## 0.1.0
 

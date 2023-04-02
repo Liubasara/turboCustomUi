@@ -5,21 +5,21 @@ importers:
   .:
     specifiers:
       '@changesets/cli': ^2.26.1
-      '@custom-lb-ui/eslint-config': workspace:*
+      '@custom-lb/eslint-config': workspace:*
       prettier: latest
       turbo: latest
     devDependencies:
       '@changesets/cli': 2.26.1
-      '@custom-lb-ui/eslint-config': link:packages/eslint-config-custom
+      '@custom-lb/eslint-config': link:packages/eslint-config-custom
       prettier: 2.8.7
       turbo: 1.8.8
 
   apps/docs:
     specifiers:
       '@babel/core': ^7.0.0
-      '@custom-lb-ui/eslint-config': workspace:*
-      '@custom-lb-ui/tsconfig': workspace:*
-      '@custom-lb-ui/ui': workspace:*
+      '@custom-lb/eslint-config': workspace:*
+      '@custom-lb/tsconfig': workspace:*
+      '@custom-lb/ui': workspace:*
       '@types/node': ^17.0.12
       '@types/react': ^18.0.22
       '@types/react-dom': ^18.0.7
@@ -29,14 +29,14 @@ importers:
       react-dom: 18.2.0
       typescript: ^4.5.3
     dependencies:
-      '@custom-lb-ui/ui': link:../../packages/ui
+      '@custom-lb/ui': link:../../packages/ui
       next: 13.2.4_z72xxk7vwlamvgqemvc4ptm4du
       react: 18.2.0
       react-dom: 18.2.0_react@18.2.0
     devDependencies:
       '@babel/core': 7.21.4
-      '@custom-lb-ui/eslint-config': link:../../packages/eslint-config-custom
-      '@custom-lb-ui/tsconfig': link:../../packages/tsconfig
+      '@custom-lb/eslint-config': link:../../packages/eslint-config-custom
+      '@custom-lb/tsconfig': link:../../packages/tsconfig
       '@types/node': 17.0.45
       '@types/react': 18.0.31
       '@types/react-dom': 18.0.11
@@ -46,9 +46,9 @@ importers:
   apps/web:
     specifiers:
       '@babel/core': ^7.0.0
-      '@custom-lb-ui/eslint-config': workspace:*
-      '@custom-lb-ui/tsconfig': workspace:*
-      '@custom-lb-ui/ui': workspace:*
+      '@custom-lb/eslint-config': workspace:*
+      '@custom-lb/tsconfig': workspace:*
+      '@custom-lb/ui': workspace:*
       '@types/node': ^17.0.12
       '@types/react': ^18.0.22
       '@types/react-dom': ^18.0.7
@@ -58,14 +58,14 @@ importers:
       react-dom: 18.2.0
       typescript: ^4.5.3
     dependencies:
-      '@custom-lb-ui/ui': link:../../packages/ui
+      '@custom-lb/ui': link:../../packages/ui
       next: 13.2.4_z72xxk7vwlamvgqemvc4ptm4du
       react: 18.2.0
       react-dom: 18.2.0_react@18.2.0
     devDependencies:
       '@babel/core': 7.21.4
-      '@custom-lb-ui/eslint-config': link:../../packages/eslint-config-custom
-      '@custom-lb-ui/tsconfig': link:../../packages/tsconfig
+      '@custom-lb/eslint-config': link:../../packages/eslint-config-custom
+      '@custom-lb/tsconfig': link:../../packages/tsconfig
       '@types/node': 17.0.45
       '@types/react': 18.0.31
       '@types/react-dom': 18.0.11
@@ -94,16 +94,16 @@ importers:
 
   packages/ui:
     specifiers:
-      '@custom-lb-ui/eslint-config': workspace:*
-      '@custom-lb-ui/tsconfig': workspace:*
+      '@custom-lb/eslint-config': workspace:*
+      '@custom-lb/tsconfig': workspace:*
       '@types/react': ^18.0.17
       '@types/react-dom': ^18.0.6
       eslint: ^7.32.0
       react: ^18.2.0
       typescript: ^4.5.2
     devDependencies:
-      '@custom-lb-ui/eslint-config': link:../eslint-config-custom
-      '@custom-lb-ui/tsconfig': link:../tsconfig
+      '@custom-lb/eslint-config': link:../eslint-config-custom
+      '@custom-lb/tsconfig': link:../tsconfig
       '@types/react': 18.0.31
       '@types/react-dom': 18.0.11
       eslint: 7.32.0
