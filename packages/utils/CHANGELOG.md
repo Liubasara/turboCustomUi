@@ -1,5 +1,11 @@
 # @custom-lb/utils
 
+## 0.0.2
+
+### Patch Changes
+
+- add consolelog
+
 ## 0.0.1
 
 ### Patch Changes
