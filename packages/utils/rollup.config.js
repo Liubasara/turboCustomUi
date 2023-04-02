@@ -106,7 +106,7 @@ export default [
   {
     input: 'src/index.ts',
     output: {
-      file: 'es/index.mjs',
+      file: 'dist/index.mjs',
       format: 'es',
       indent: false,
     },
