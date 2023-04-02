@@ -24,8 +24,8 @@ export default [
     input: 'src/index.ts',
     // external: [],
     output: {
-      name: 'AhUtils',
-      file: 'dist/index.min.js',
+      name: 'customLbUtils',
+      file: pkg.browser,
       format: 'umd',
       //   indent: false,
     },

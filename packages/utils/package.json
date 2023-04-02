@@ -1,18 +1,22 @@
 {
   "name": "@custom-lb/utils",
   "version": "0.0.0",
-  "main": "lib/index.js",
-  "module": "es/index.js",
-  "browser": "dist/index.js",
+  "main": "dist/index.cjs.js",
+  "module": "dist/index.esm.js",
+  "browser": "dist/index.umd.js",
   "types": "types/index.d.ts",
   "license": "MIT",
   "publishConfig": {
     "access": "public"
   },
+  "files": [
+    "dist",
+    "types"
+  ],
   "scripts": {
     "lint": "eslint *.ts*",
     "build": "pnpm clean && rollup -c --bundleConfigAsCjs",
-    "clean": "rimraf lib dist es types"
+    "clean": "rimraf dist types"
   },
   "devDependencies": {
     "@babel/core": "^7.0.0",
