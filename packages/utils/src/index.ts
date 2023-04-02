@@ -30,12 +30,12 @@ export const baiduPanVideoCancelLimit = () => {
       }
       secElm.style.cssText += `flex: 1; min-height: 100%; width: 100%; display: flex; flex-direction: column;`
       console.log('------------------------------------------------\n')
-      console.log('请在 #video-root 的 shadow-root 下找到 class="werbung-video" 的元素并作为参数1传入 window.test.exec ')
-      console.log('请在 #video-root 的 shadow-root 下找到 id="video-wrapper" 的元素并作为参数2传入 window.test.exec ')
-      console.log('请在 #video-root 的 shadow-root 下找到 id="video-player" 的元素并作为参数3传入 window.test.exec ')
-      console.log('请在 #video-root 的 shadow-root 下找到 id="video-player" 的元素并作为参数3传入 window.test.exec ')
-      console.log('请在 #video-root 的 shadow-root 下找到 <canvas> 元素并作为参数4传入 window.test.exec ')
-      console.log('或者在 element panel 上倒序点击上述元素后，执行 window.test.startExec() ')
+      console.log('请在 #video-root 的 shadow-root 下找到 class="werbung-video" 的元素并作为参数1传入 window.cancelVideoLimit.exec ')
+      console.log('请在 #video-root 的 shadow-root 下找到 id="video-wrapper" 的元素并作为参数2传入 window.cancelVideoLimit.exec ')
+      console.log('请在 #video-root 的 shadow-root 下找到 id="video-player" 的元素并作为参数3传入 window.cancelVideoLimit.exec ')
+      console.log('请在 #video-root 的 shadow-root 下找到 id="video-player" 的元素并作为参数3传入 window.cancelVideoLimit.exec ')
+      console.log('请在 #video-root 的 shadow-root 下找到 <canvas> 元素并作为参数4传入 window.cancelVideoLimit.exec ')
+      console.log('或者在 element panel 上倒序点击上述元素后，执行 window.cancelVideoLimit.startExec() ')
       console.log('------------------------------------------------\n')
 
       const exec = (elm1, elm2, elm3, elm4) => {
@@ -67,7 +67,7 @@ export const baiduPanVideoCancelLimit = () => {
         exec
       }
     })()
-    console.log('请手动执行 window.cancelVideoLimit() ')
+    console.log('请手动查看 window.cancelVideoLimit ')
   } else {
     console.log('未处于浏览器环境中, 跳过')
   }
