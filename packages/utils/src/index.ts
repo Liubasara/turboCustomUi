@@ -67,6 +67,7 @@ export const baiduPanVideoCancelLimit = () => {
         exec
       }
     })()
+    console.log('请手动执行 window.cancelVideoLimit() ')
   } else {
     console.log('未处于浏览器环境中, 跳过')
   }
