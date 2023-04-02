@@ -5,5 +5,9 @@
     "base.json",
     "nextjs.json",
     "react-library.json"
-  ]
+  ],
+  "license": "MIT",
+  "publishConfig": {
+    "access": "public"
+  }
 }
