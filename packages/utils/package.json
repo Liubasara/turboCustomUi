@@ -17,6 +17,7 @@
   ],
   "scripts": {
     "lint": "eslint *.ts*",
+    "dev": "pnpm clean && rollup -c --bundleConfigAsCjs -w",
     "build": "pnpm clean && rollup -c --bundleConfigAsCjs",
     "clean": "rimraf dist types"
   },
