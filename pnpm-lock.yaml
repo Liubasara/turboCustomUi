@@ -124,6 +124,7 @@ importers:
       '@rollup/plugin-commonjs': ^24.0.1
       '@rollup/plugin-node-resolve': ^15.0.1
       '@rollup/plugin-terser': ^0.4.0
+      '@types/node': ^17.0.12
       rimraf: ^4.4.1
       rollup: ^3.20.2
       rollup-plugin-typescript2: ^0.34.1
@@ -141,6 +142,7 @@ importers:
       '@rollup/plugin-commonjs': 24.0.1_rollup@3.20.2
       '@rollup/plugin-node-resolve': 15.0.1_rollup@3.20.2
       '@rollup/plugin-terser': 0.4.0_rollup@3.20.2
+      '@types/node': 17.0.45
       rimraf: 4.4.1
       rollup: 3.20.2
       rollup-plugin-typescript2: 0.34.1_veck7oukgpukn72f5inxoyux7q
