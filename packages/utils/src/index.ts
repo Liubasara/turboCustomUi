@@ -96,26 +96,30 @@ export const getSingle = function <
       return result || (result = fn.apply(this, args as U))
     }
   } else {
+    type LocalStorageInstanceType = InstanceType<typeof AsyncLocalStorage<{
+      [key: string]: T
+    }>>
+    const globalStoreName = opt.globalStoreName || '__custom_lb_utils_asyncLocalStorage__'
+    const getGlobalAsyncStorage: () => LocalStorageInstanceType | void = () => (global as any)[globalStoreName]
+    const getCurrentStore = () => {
+      const globalAsyncStorage = getGlobalAsyncStorage()
+      if (!globalAsyncStorage) {
+        throw Error(`没有在 global 上找到名为 ${globalStoreName} 的 store，请确保已经设置该 ${globalStoreName} 全局变量`)
+      }
+      const currentStore = globalAsyncStorage.getStore()
+      if (!currentStore) {
+        throw Error(`${globalStoreName} 无法 getStore，请不要使用异步逻辑或考虑将相关逻辑放入 setTimeout 中执行`)
+      }
+      return currentStore
+    }
+    const getResult = () => getCurrentStore()[opt.key]
+    const setResult = (val: T) => {
+      getCurrentStore()[opt.key] = val
+      return val
+    }
     return function <V extends string>(this: unknown, ...args: V extends 'init' ? U : any[]) {
       return new Proxy({}, {
         get(t, prop) {
-          type LocalStorageInstanceType = InstanceType<typeof AsyncLocalStorage<{
-            [key: string]: T
-          }>>
-          const globalStoreName = opt.globalStoreName || '__custom_lb_utils_asyncLocalStorage__'
-          const globalAsyncStorage: LocalStorageInstanceType | void = (global as any)[globalStoreName]
-          if (!globalAsyncStorage) {
-            throw Error(`没有在 global 上找到名为 ${globalStoreName} 的 store，请确保已经设置该 ${globalStoreName} 全局变量`)
-          }
-          const currentStore = globalAsyncStorage.getStore()
-          if (!currentStore) {
-            throw Error(`${globalStoreName} 无法 getStore，请不要使用异步逻辑或考虑将相关逻辑放入 setTimeout 中执行`)
-          }
-          const getResult = () => currentStore[opt.key]
-          const setResult = (val: T) => {
-            currentStore[opt.key] = val
-            return val
-          }
           let result = getResult()
           if (!result) {
             result = setResult(fn.apply(this, args as U))
