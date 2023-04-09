@@ -74,28 +74,23 @@ export const baiduPanVideoCancelLimit = () => {
   }
 }
 
-type InSsrSingleType = { ssr: boolean, globalStoreName?: string, key: string }
-type InBrowserSingleType = {}
+type InSsrSingleType = { client: 'ssr'; globalStoreName?: string, key: string }
+type InBrowserSingleType = { client: 'browser' }
 type GetSingleOptType = InSsrSingleType | InBrowserSingleType
-
-
-const isSsrOpt = (x: any): x is InSsrSingleType => {
-  return x.ssr
-}
 
 export const getSingle = function <
   T extends Record<string, any>,
   U extends any[]
->(fn: (...args: U) => T, opt: GetSingleOptType = {}) {
+>(fn: (...args: U) => T, opt: GetSingleOptType = { client: 'browser' }) {
   let result: T
-  if (!isSsrOpt(opt)) {
+  if (opt.client === 'browser') {
     return function <V extends string>(
       this: unknown,
       ...args: V extends 'init' ? U : any[]
     ) {
       return result || (result = fn.apply(this, args as U))
     }
-  } else {
+  } else if (opt.client === 'ssr') {
     type LocalStorageInstanceType = InstanceType<typeof AsyncLocalStorage<{
       [key: string]: T
     }>>
@@ -128,6 +123,7 @@ export const getSingle = function <
         }
       })
     }
+  } else {
+    throw Error('getSingle 传入 client 必须为 browser 或 ssr')
   }
 }
-
