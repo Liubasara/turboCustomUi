@@ -74,15 +74,60 @@ export const baiduPanVideoCancelLimit = () => {
   }
 }
 
-type InSsrSingleType = { client: 'ssr'; globalStoreName?: string, key: string }
-type InBrowserSingleType = { client: 'browser' }
-type GetSingleOptType = InSsrSingleType | InBrowserSingleType
+export const kgp3UtilsSingleAsyncLocalStorageSymbol =
+  '__kgp3_utils_single_async_localStorage_symbol__'
 
+/**
+ * ```ts
+ *
+ * const { AsyncLocalStorage } = require("async_hooks")
+ *
+ * const asyncLocalStorage = createGlobalAsyncLocalStorage(AsyncLocalStorage)
+ *
+ * asyncLocalStorage.run({}, () => {
+ *   const singleVar = getSingle(() => ({ a: 1 }), { client: 'ssr', key: 'a' })
+ * })
+ * ```
+ *
+ * @param storage
+ * @returns
+ */
+export const createGlobalAsyncLocalStorage = <T>(
+  storage: typeof AsyncLocalStorage
+): typeof AsyncLocalStorage<T> => {
+  return (
+    global[kgp3UtilsSingleAsyncLocalStorageSymbol] ||
+    (global[kgp3UtilsSingleAsyncLocalStorageSymbol] = new storage())
+  )
+}
+
+export type InSsrSingleType = { client: 'ssr'; globalStoreName?: string; key: string }
+export type InBrowserSingleType = { client: 'browser' }
+export type GetSingleOptType = InSsrSingleType | InBrowserSingleType
+
+/**
+ * SSR 环境下:
+ *```ts
+ * const { AsyncLocalStorage } = require("async_hooks")
+ *
+ * const asyncLocalStorage = createGlobalAsyncLocalStorage(AsyncLocalStorage)
+ *
+ * asyncLocalStorage.run({}, () => {
+ *   const singleVar = getSingle(() => ({ a: 1 }), { client: 'ssr', key: 'a' })
+ * })
+ * ```
+ *
+ * 浏览器环境下:
+ * ```ts
+ * const singleVar = getSingle(() => ({ a: 1 }))
+ * ```
+ */
 export const getSingle = function <
-  T extends Record<string, any>,
+  T extends Record<string, any> | ((...args: any[]) => any),
   U extends any[]
 >(fn: (...args: U) => T, opt: GetSingleOptType = { client: 'browser' }) {
   let result: T
+
   if (opt.client === 'browser') {
     return function <V extends string>(
       this: unknown,
@@ -91,19 +136,26 @@ export const getSingle = function <
       return result || (result = fn.apply(this, args as U))
     }
   } else if (opt.client === 'ssr') {
-    type LocalStorageInstanceType = InstanceType<typeof AsyncLocalStorage<{
-      [key: string]: T
-    }>>
-    const globalStoreName = opt.globalStoreName || '__custom_lb_utils_asyncLocalStorage__'
-    const getGlobalAsyncStorage: () => LocalStorageInstanceType | void = () => (global as any)[globalStoreName]
+    type LocalStorageInstanceType = InstanceType<
+      typeof AsyncLocalStorage<{
+        [key: string]: T
+      }>
+    >
+    const globalStoreName = opt.globalStoreName || kgp3UtilsSingleAsyncLocalStorageSymbol
+    const getGlobalAsyncStorage: () => LocalStorageInstanceType | void = () =>
+      (global as any)[globalStoreName]
     const getCurrentStore = () => {
       const globalAsyncStorage = getGlobalAsyncStorage()
       if (!globalAsyncStorage) {
-        throw Error(`没有在 global 上找到名为 ${globalStoreName} 的 store，请确保已经设置该 ${globalStoreName} 全局变量`)
+        throw Error(
+          `没有在 global 上找到名为 ${globalStoreName} 的 store，请确保已经设置该 ${globalStoreName} 全局变量`
+        )
       }
       const currentStore = globalAsyncStorage.getStore()
       if (!currentStore) {
-        throw Error(`${globalStoreName} 无法 getStore，请不要使用异步逻辑或考虑将相关逻辑放入 setTimeout 中执行`)
+        throw Error(
+          `${globalStoreName} 无法 getStore，请不要使用异步逻辑或考虑将相关逻辑放入 setTimeout 中执行`
+        )
       }
       return currentStore
     }
@@ -112,14 +164,31 @@ export const getSingle = function <
       getCurrentStore()[opt.key] = val
       return val
     }
-    return function <V extends string>(this: unknown, ...args: V extends 'init' ? U : any[]) {
-      return new Proxy({}, {
-        get(t, prop) {
+    return function <V extends string>(
+      this: unknown,
+      ...args: V extends 'init' ? U : any[]
+    ) {
+      // eslint-disable-next-line @typescript-eslint/no-this-alias
+      const that = this
+      const proxyRes = fn.apply(that, args as U)
+      return new Proxy<T>(proxyRes, {
+        apply(_t, thisArg, argumentList) {
           let result = getResult()
           if (!result) {
-            result = setResult(fn.apply(this, args as U))
+            result = setResult(fn.apply(that, args as U))
           }
-          return result[prop as string]
+          return result.apply(thisArg, argumentList)
+        },
+        get(_t, prop, receiver) {
+          let result = getResult()
+          if (!result) {
+            result = setResult(fn.apply(that, args as U))
+          }
+          const targetProp = Reflect.get(result, prop, receiver)
+          if (typeof targetProp === 'function') {
+            return targetProp.bind(result)
+          }
+          return targetProp
         }
       })
     }
